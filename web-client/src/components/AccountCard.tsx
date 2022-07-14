@@ -11,6 +11,19 @@ const AccountCard: React.FC<{account: BankAccount}> = (props) => {
       <TransactionList transactions={account.transactions} /> : null;
   };
 
+  const toggleTransactionsButton = (bottom: boolean) => {
+    if (!showTransactions && bottom) { return null; }
+
+    return (
+      <button
+        onClick={() => setShowTransacitons(!showTransactions)}
+        className="border border-blue-500 border-2 rounded px-2 font-semibold text-blue-500 mt-3"
+      >
+        {showTransactions ? 'Hide transactions' : 'Show transactions'}
+      </button>
+    );
+  };
+
   return (
     <div className="border p-2 my-3 rounded-lg">
       <h3 className="text-lg">
@@ -40,14 +53,10 @@ const AccountCard: React.FC<{account: BankAccount}> = (props) => {
         BSB: {account.bsb}
       </p>
 
-      <button
-        onClick={ () => setShowTransacitons(!showTransactions) }
-        className="border border-blue-500 border-2 rounded px-2 font-semibold text-blue-500 mt-3"
-      >
-        Show transactions
-      </button>
-
+      {toggleTransactionsButton(false)}
       {transactionsList()}
+      {toggleTransactionsButton(true)}
+
     </div>
   );
 };
