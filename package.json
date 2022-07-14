@@ -10,6 +10,7 @@
     "start": "npx nodemon ./src/app.ts"
   },
   "dependencies": {
+    "@fastify/cors": "^8.0.0",
     "fastify": "^4.2.0",
     "lodash": "^4.17.21"
   },

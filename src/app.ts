@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const server: FastifyInstance = Fastify({});
 
+server.register(require('@fastify/cors'), {});
+
 server.get("/api/transactions", async (request, reply) => {
   // This is where you would get the data from the database
   const transactions: BankTransactions = JSON.parse(
