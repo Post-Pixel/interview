@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BankAccount } from '../models/transactions';
-import TransactionList from './TransactionList';
+import AccountAnalysis from './AccountAnalysis';
 
 const AccountCard: React.FC<{account: BankAccount}> = (props) => {
   const { account } = props;
@@ -8,7 +8,7 @@ const AccountCard: React.FC<{account: BankAccount}> = (props) => {
 
   const transactionsList = () => {
     return showTransactions ?
-      <TransactionList transactions={account.transactions} /> : null;
+      <AccountAnalysis account={account} /> : null;
   };
 
   const toggleTransactionsButton = (bottom: boolean) => {
@@ -19,7 +19,7 @@ const AccountCard: React.FC<{account: BankAccount}> = (props) => {
         onClick={() => setShowTransacitons(!showTransactions)}
         className="border border-blue-500 border-2 rounded px-2 font-semibold text-blue-500 mt-3"
       >
-        {showTransactions ? 'Hide transactions' : 'Show transactions'}
+        {showTransactions ? 'Hide analysis' : 'Show analysis'}
       </button>
     );
   };

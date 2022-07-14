@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bank, BankAccount, Transaction } from './models/transactions';
+import { Bank } from './models/transactions';
 import AccountCard from './components/AccountCard';
 
 function App() {
@@ -11,27 +11,6 @@ function App() {
       .then(response => response.json())
       .then(data => setBanks(data.banks));
   }, [])
-
-  const transactionList = (transactions: Transaction[]) => {
-    return transactions.map(transaction => {
-      return (
-        <div>
-          {transaction.date} - { transaction.amount }
-        </div>
-      );
-      }
-    );
-
-  };
-
-  const accountSummary = (account: BankAccount) => {
-    return (
-      <div key={account.id}>
-        {account.accountName}
-        {transactionList(account.transactions)}
-      </div>
-    );
-  }
 
   const bankAccounts = (bank: Bank) => {
     return bank
@@ -57,7 +36,7 @@ function App() {
   return (
     <div className="App p-6">
       <header className="App-header py-3 text-right">
-        Neo interview
+        Neo interview - Ashley Sharpe
       </header>
       <div>
         <h1 className="font-semibold p-3">Banks</h1>
