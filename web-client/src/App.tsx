@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bank } from './models/transactions';
+import { Bank, BankAccount, Transaction } from './models/transactions';
 
 function App() {
   const [banks, setBanks] = useState([] as Bank[]);
@@ -11,6 +11,33 @@ function App() {
       .then(data => setBanks(data.banks));
   }, [])
 
+  const transactionList = (transactions: Transaction[]) => {
+    return transactions.map(transaction => {
+      return (
+        <div>
+          {transaction.date} - { transaction.amount }
+        </div>
+      );
+      }
+    );
+
+  };
+
+  const accountSummary = (account: BankAccount) => {
+    return (
+      <div key={account.id}>
+        {account.accountName}
+        {transactionList(account.transactions)}
+      </div>
+    );
+  }
+
+  const bankAccounts = (bank: Bank) => {
+    return bank
+      .bankAccounts
+      .map(account => accountSummary(account));
+  };
+
   const bankCards = banks.map((bank) => {
     return (
       <div className="border rounded p-3">
@@ -21,6 +48,7 @@ function App() {
           </span>
         </h2>
         <p className="italic">{bank.address.state}</p>
+        {bankAccounts(bank)}
       </div>
     );
   });
