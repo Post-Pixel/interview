@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Bank, BankAccount, Transaction } from './models/transactions';
+import AccountCard from './components/AccountCard';
 
 function App() {
   const [banks, setBanks] = useState([] as Bank[]);
@@ -35,7 +36,7 @@ function App() {
   const bankAccounts = (bank: Bank) => {
     return bank
       .bankAccounts
-      .map(account => accountSummary(account));
+      .map(account => <AccountCard account={account} />);
   };
 
   const bankCards = banks.map((bank) => {
