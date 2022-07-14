@@ -1,32 +1,39 @@
-import { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import { Bank } from './models/transactions';
 
 function App() {
+  const [banks, setBanks] = useState([] as Bank[]);
 
   useEffect(() => {
     // TODO: API URL should be in an environment variable
     fetch('http://localhost:3000/api/transactions')
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => setBanks(data.banks));
   }, [])
 
+  const bankCards = banks.map((bank) => {
+    return (
+      <div className="border rounded p-3">
+        <h2 className="text-lg">
+          {bank.bankName + ' '}
+          <span className="italic text-sm">
+            {bank.bankAccounts.length} Accounts
+          </span>
+        </h2>
+        <p className="italic">{bank.address.state}</p>
+      </div>
+    );
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="App p-6">
+      <header className="App-header py-3 text-right">
+        Neo interview
       </header>
+      <div>
+        <h1 className="font-semibold p-3">Banks</h1>
+        {bankCards}
+      </div>
     </div>
   );
 }
